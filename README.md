@@ -1,2 +1,2 @@
 # node-tensorflow
-Node-tensorflow is a NodeJS API for utilizing Google's machine learning library TensorFlow.
+Node-tensorflow is a NodeJS API for utilizing Google's open-source machine learning library TensorFlow.
