@@ -1,0 +1,24 @@
+{
+  "name": "node-tensorflow",
+  "description": "Node-tensorflow is a NodeJS API for utilizing Google's machine learning library TensorFlow.",
+  "version": "0.0.1",
+  "keywords": [
+    "tensorflow",
+    "node-tensorflow"
+  ],
+  "bugs": {
+    "web": "https://github.com/node-tensorflow/node-tensorflow/issues"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/node-tensorflow/node-tensorflow.git"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ]
+}
