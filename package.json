@@ -25,5 +25,8 @@
       "name": "Apache License 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
-  ]
+  ],
+  "devDependencies": {
+    "pkg-config": "^1.1.0"
+  }
 }
