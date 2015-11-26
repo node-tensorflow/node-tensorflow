@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Global Configurations
+TENSORFLOW_GPU_ENABLED="n"
+
+# Change dir to shell script dir
+cd $(dirname $0)
+
 # Check current Platform
 platform="linux"
 
@@ -98,11 +104,12 @@ fetch_xz() {
 
 clone(){
 	local repo=$1
+	local folderName=$2
 
 	echo ""
 	echo "= cloning $repo"
 
-	git clone --recurse-submodules $repo
+	git clone --recurse-submodules $repo ./$folderName
 }
 
 make_install() {
@@ -195,6 +202,11 @@ install linux "dh-autoreconf"
 install darwin "automake"
 
 # 
+# Install JDK 8, ONLY if JDK (javac) is not installed
+# 
+test `which javac` || install linux "oracle-java8-installer"
+
+# 
 # Install Bazel
 # 
 # Export path if not yet saved
@@ -217,16 +229,31 @@ fi
 # 
 # Install TensorFlow
 # 
+
+# Clone Repo
 rm -rf "tensorflow"
-clone $TENSORFLOW
+clone $TENSORFLOW "tensorflow"
 cd "tensorflow"
 
 # Configure TensorFlow (with/without GPU)
+echo ""
+echo "= Configuring TensorFlow (GPU: $TENSORFLOW_GPU_ENABLED)"
 ./configure <<< "n"
 
-# Compile photobufm
-cd google/protobuf
+# Compile TensorFlow CC
+echo ""
+echo "= Compiling TensorFlow:core"
+bazel build //tensorflow/core
+
+
+# Compile photobuf
+cd "google/protobuf"
+echo ""
+echo "= Compiling Google's protobuf"
 ./autogen.sh
 make
-make check
-make install
+bazel build
+
+echo ""
+echo "= Finished!"
+echo ""
