@@ -247,6 +247,11 @@ echo "= Configuring TensorFlow (GPU: $TENSORFLOW_GPU_ENABLED)"
 
 # Compile TensorFlow CC
 echo ""
+echo "= Compiling TensorFlow:cc"
+bazel build //tensorflow/cc:cc_ops
+
+# Compile TensorFlow Core
+echo ""
 echo "= Compiling TensorFlow:core"
 bazel build //tensorflow/core
 
@@ -275,8 +280,6 @@ cp -a tensorflow/tensorflow/cc 					$srcDir/tensorflow
 cp -a tensorflow/tensorflow/core 				$srcDir/tensorflow
 cp -a tensorflow/google/protobuf/src/google		$srcDir
 cp -a tensorflow/third_party					$srcDir
-cp -a tensorflow/third_party/eigen3				$srcDir
-cp -a tensorflow/third_party/gpus				$srcDir
 
 # Remove repo folder
 cd ../
