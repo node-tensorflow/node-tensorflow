@@ -258,10 +258,15 @@ bazel build //tensorflow/core
 # Compile photobuf
 cd "google/protobuf"
 echo ""
-echo "= Compiling Google's protobuf"
-./autogen.sh
-make
-bazel build
+echo "= Installing Google's protobuf"
+if ! pkg-config protobuf --exists; then
+	./autogen.sh
+	make
+	make check
+	make install
+else
+	echo "== Skipped. Already installed."
+fi
 
 # 
 # Copy essential files to ./src/includes
