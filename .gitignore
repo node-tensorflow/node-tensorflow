@@ -5,5 +5,8 @@ logs
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build
 
+# Compiled TensorFlow cc files
+src/includes
+
 # Dependency directory
 node_modules
