@@ -242,7 +242,7 @@ fi
 # 
 
 # Clone Repo
-clone $TENSORFLOW "tensorflow"
+# clone $TENSORFLOW "tensorflow"
 
 # Go to tensorflow dir
 cd "tensorflow"
@@ -287,6 +287,11 @@ echo "= Cleaning up..."
 
 srcDir="../src/includes"
 libDir="../src/lib"
+
+# Make directory and clean it
+mkdir -p $srcDir
+mkdir -p $libDir
+
 rm -rf $srcDir
 rm -rf $libDir
 
@@ -301,7 +306,7 @@ cp -a tensorflow/third_party					$srcDir
 cp -a tensorflow/bazel-out/host/bin/.			$libDir
 
 # Remove repo folder
-rm -rf "tensorflow"
+# rm -rf "tensorflow"
 
 echo ""
 echo "= Finished!"
