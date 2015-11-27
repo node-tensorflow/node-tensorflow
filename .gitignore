@@ -6,6 +6,8 @@ logs
 build
 
 # Compiled TensorFlow cc files
+src/lib
+src/data
 src/includes
 
 # Dependency directory
