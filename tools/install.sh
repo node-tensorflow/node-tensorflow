@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Global Configurations
 TENSORFLOW_GPU_ENABLED="n"
@@ -78,13 +78,13 @@ fetch() {
 	local dir=`basename $tarball .tar.gz`
 
 	echo ""
-	echo "= downloading $tarball"
+	echo "= downloading $tarball $2"
 	curl -# -L $1 -o $tarball \
 		&& echo "== unpacking" \
 		&& tar -zxf $tarball \
 		&& echo "== removing tarball" \
 		&& rm -fr $tarball \
-		&& make_install $dir
+		&& make_install $dir $2
 }
 
 fetch_xz() {
@@ -120,10 +120,10 @@ make_install() {
 	local dir=$1
 
 	echo ""
-	echo "= installing $1"
+	echo "= installing $1 $2"
 
  	cd $dir \
-	 && ./configure --disable-dependency-tracking --prefix=$PREFIX \
+	 && ./configure --disable-dependency-tracking --prefix=$PREFIX $2 \
 	 && make \
 	 && make install \
 	 && echo "... removing $dir" \
@@ -178,11 +178,24 @@ install(){
 echo ""
 echo "= installing to $PREFIX"
 
+# 
+# Install JDK 8, ONLY if JDK (javac) is not installed
+# 
+if ! which javac; then
+	echo ""
+	echo "= No JDK installed. Installing JDK 8"
+	add-apt-repository ppa:webupd8team/java
+	apt-get update
+	install linux "oracle-java8-installer"
+	install linux "oracle-java8-set-default"
+fi
+
 # Check for JDK 8
 JAVA_VER=$(javac -version 2>&1 | sed 's/javac \(.*\)\.\(.*\)\..*/\1\2/; 1q')
 
 if [ "$JAVA_VER" != "18" ]; then
-	echo "JAVAC version is not 1.8. Current version: $JAVA_VER"
+	echo ""
+	echo "JAVAC version is not JDK 8. Current version: $JAVA_VER"
 	exit 1
 fi
 
@@ -192,7 +205,7 @@ require curl
 require javac
 
 # Check for pkg-config and install if needed
-test `which pkg-config` || fetch $PKG_CONFIG
+test `which pkg-config` || fetch $PKG_CONFIG --with-internal-glib
 require 'pkg-config'
 
 # Install Bazel Dependencies
@@ -203,12 +216,6 @@ install linux "unzip"
 
 # Install protobuf dependencies
 install linux "dh-autoreconf"
-install darwin "automake"
-
-# 
-# Install JDK 8, ONLY if JDK (javac) is not installed
-# 
-test `which javac` || install linux "oracle-java8-installer"
 
 # 
 # Install Bazel
@@ -261,6 +268,7 @@ echo ""
 echo "= Installing Google's protobuf"
 if ! pkg-config protobuf --exists; then
 	./autogen.sh
+	./configure
 	make
 	make check
 	make install
@@ -278,16 +286,21 @@ echo ""
 echo "= Cleaning up..."
 
 srcDir="../src/includes"
+libDir="../src/lib"
 rm -rf $srcDir
+rm -rf $libDir
 
+# Copy .h & .cc files
 cp -a tensorflow/bazel-genfiles/. 				$srcDir
 cp -a tensorflow/tensorflow/cc 					$srcDir/tensorflow
 cp -a tensorflow/tensorflow/core 				$srcDir/tensorflow
 cp -a tensorflow/google/protobuf/src/google		$srcDir
 cp -a tensorflow/third_party					$srcDir
 
+# Copy Libraries (.io)
+cp -a tensorflow/bazel-out/host/bin/.			$libDir
+
 # Remove repo folder
-cd ../
 rm -rf "tensorflow"
 
 echo ""
