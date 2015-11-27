@@ -34,14 +34,14 @@ using tensorflow::int32;
 // input the model expects. If you train your own model, or use something
 // other than GoogLeNet you'll need to update these.
 TF_DEFINE_string(image,
-                 "tensorflow/examples/label_image/data/grace_hopper.jpg",
+                 "data/grace_hopper.jpg",
                  "The image to classify (JPEG or PNG).");
 TF_DEFINE_string(graph,
-                 "tensorflow/examples/label_image/data/googlenet_graph.pb",
+                 "data/googlenet_graph.pb",
                  "The location of the GraphDef file containing the protobuf"
                  " definition of the network.");
 TF_DEFINE_string(labels,
-                 "tensorflow/examples/label_image/data/googlenet_labels.txt",
+                 "data/googlenet_labels.txt",
                  "A text file containing the labels of all the categories, one"
                  " per line.");
 TF_DEFINE_int32(input_width, 224, "Width of the image the network expects.");
@@ -216,14 +216,14 @@ Status CheckTopLabel(const std::vector<Tensor>& outputs, int expected,
   return Status::OK();
 }
 
-int main(int argc, char* argv[]) {
+int runTests() {
   // We need to call this to set up global state for TensorFlow.
-  tensorflow::port::InitMain(argv[0], &argc, &argv);
-  Status s = tensorflow::ParseCommandLineFlags(&argc, argv);
-  if (!s.ok()) {
-    LOG(ERROR) << "Error parsing command line flags: " << s.ToString();
-    return -1;
-  }
+  // tensorflow::port::InitMain(argv[0], &argc, &argv);
+  // Status s = tensorflow::ParseCommandLineFlags(&argc, argv);
+  // if (!s.ok()) {
+  //   LOG(ERROR) << "Error parsing command line flags: " << s.ToString();
+  //   return -1;
+  // }
 
   // First we load and initialize the model.
   std::unique_ptr<tensorflow::Session> session;
@@ -285,8 +285,13 @@ int main(int argc, char* argv[]) {
 
 using namespace v8;
 
+NAN_METHOD(RunTest) {
+	printf("\nRunning Test\n");
+	runTests();
+}
+
 NAN_METHOD(Version) {
-    printf("%s", TF_VERSION_STRING);
+    printf("%s\n", TF_VERSION_STRING);
 }
 
 NAN_METHOD(Print) {
@@ -299,6 +304,9 @@ NAN_MODULE_INIT(Init) {
 
     Nan::Set(target, Nan::New("version").ToLocalChecked(),
       Nan::GetFunction(Nan::New<FunctionTemplate>(Version)).ToLocalChecked());
+
+    Nan::Set(target, Nan::New("test").ToLocalChecked(),
+      Nan::GetFunction(Nan::New<FunctionTemplate>(RunTest)).ToLocalChecked());
 }
 
 NODE_MODULE(myaddon, Init);

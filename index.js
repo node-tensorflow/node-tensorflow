@@ -4,3 +4,5 @@ var bindings = require('bindings');
 var addon = bindings('node-tensorflow');
 
 addon.version();
+
+addon.test();

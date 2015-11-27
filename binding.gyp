@@ -4,7 +4,8 @@
 		'sources': ['src/api.cc'],
 		
 		'libraries' : [ 
-			"<!@(pkg-config --libs protobuf)"
+			"<!@(pkg-config --libs protobuf)",
+			"<!@(find $(pwd)/src/lib -iname \*.lo)"
 		],
 
 		'include_dirs' : [ 
@@ -22,21 +23,23 @@
 		"conditions": [
 			[ "OS==\"mac\"", {
 				"xcode_settings": {
-				"OTHER_CFLAGS": [
-					"-mmacosx-version-min=10.7",
-					"-std=c++11",
-					"-stdlib=libc++",
-					"<!@(pkg-config --cflags opencv)",
-				  ],
-				"GCC_ENABLE_CPP_RTTI": "YES",
-				"GCC_ENABLE_CPP_EXCEPTIONS": "YES"
-			  }
+					"OTHER_CFLAGS": [
+						"-mmacosx-version-min=10.7",
+						"-std=c++11",
+						"-stdlib=libc++",
+						"<!@(pkg-config --cflags protobuf)",
+					  ],
+					"GCC_ENABLE_CPP_RTTI": "YES",
+					"GCC_ENABLE_CPP_EXCEPTIONS": "YES"
+				}
 			}]
 		],
 		'cflags': [
-			"<!@(pkg-config --cflags protobuf)"
+			"<!@(pkg-config --cflags protobuf)",
+			"-frtti",
 		],
 		'cflags!': [
+			"-fno-rtti",
 			"-fno-exceptions"
 		]
 	}]
