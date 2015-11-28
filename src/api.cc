@@ -6,6 +6,9 @@
 
 #include <fstream>
 
+// #include "tensorflow/core/lib/core/stringpiece.h"
+
+
 #include "tensorflow/cc/ops/const_op.h"
 #include "tensorflow/cc/ops/image_ops.h"
 #include "tensorflow/cc/ops/standard_ops.h"
@@ -34,14 +37,14 @@ using tensorflow::int32;
 // input the model expects. If you train your own model, or use something
 // other than GoogLeNet you'll need to update these.
 TF_DEFINE_string(image,
-                 "data/grace_hopper.jpg",
+                 "src/data/grace_hopper.jpg",
                  "The image to classify (JPEG or PNG).");
 TF_DEFINE_string(graph,
-                 "data/googlenet_graph.pb",
+                 "src/data/tensorflow_inception_graph.pb",
                  "The location of the GraphDef file containing the protobuf"
                  " definition of the network.");
 TF_DEFINE_string(labels,
-                 "data/googlenet_labels.txt",
+                 "src/data/imagenet_comp_graph_label_strings.txt",
                  "A text file containing the labels of all the categories, one"
                  " per line.");
 TF_DEFINE_int32(input_width, 224, "Width of the image the network expects.");
@@ -216,6 +219,8 @@ Status CheckTopLabel(const std::vector<Tensor>& outputs, int expected,
   return Status::OK();
 }
 
+using namespace v8;
+
 int runTests() {
   // We need to call this to set up global state for TensorFlow.
   // tensorflow::port::InitMain(argv[0], &argc, &argv);
@@ -227,6 +232,7 @@ int runTests() {
 
   // First we load and initialize the model.
   std::unique_ptr<tensorflow::Session> session;
+  printf("HEY!");
   string graph_path = tensorflow::io::JoinPath(FLAGS_root_dir, FLAGS_graph);
   Status load_graph_status = LoadGraph(graph_path, &session);
   if (!load_graph_status.ok()) {
@@ -283,7 +289,6 @@ int runTests() {
 }
 
 
-using namespace v8;
 
 NAN_METHOD(RunTest) {
 	printf("\nRunning Test\n");

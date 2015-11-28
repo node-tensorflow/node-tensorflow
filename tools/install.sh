@@ -110,7 +110,7 @@ clone(){
 	echo "= cloning $folderName [url: $repo]"
 
 	# Remove folder before cloning
-	# rm -rf $folderName
+	rm -rf $folderName
 
 	# Git clone the repo
 	git clone --recurse-submodules $repo ./$folderName
@@ -252,15 +252,10 @@ echo ""
 echo "= Configuring TensorFlow (GPU: $TENSORFLOW_GPU_ENABLED)"
 ./configure <<< "n"
 
-# Compile TensorFlow CC
+# Compile TensorFlow Core and CC
 echo ""
-echo "= Compiling TensorFlow:cc"
-bazel build //tensorflow/cc:cc_ops
-
-# Compile TensorFlow Core
-echo ""
-echo "= Compiling TensorFlow:core"
-bazel build //tensorflow/core
+echo "= Compiling TensorFlow [cc|core]"
+bazel build //tensorflow/cc:cc_ops //tensorflow/core:tensorflow
 
 # Compile photobuf
 cd "google/protobuf"
@@ -268,9 +263,9 @@ echo ""
 echo "= Installing Google's protobuf"
 if ! pkg-config protobuf --exists; then
 	./autogen.sh
-	./configure
+	./configure --prefix=/usr/local/bin
 	make
-	make check
+	# make check
 	make install
 else
 	echo "== Skipped. Already installed."
@@ -302,8 +297,14 @@ cp -a tensorflow/tensorflow/core 				$srcDir/tensorflow
 cp -a tensorflow/google/protobuf/src/google		$srcDir
 cp -a tensorflow/third_party					$srcDir
 
-# Copy Libraries (.io)
-cp -a tensorflow/bazel-out/host/bin/.			$libDir
+# Copy Libraries (.o)
+mkdir -p $libDir/google
+mkdir -p $libDir/external
+mkdir -p $libDir/tensorflow
+
+cp -a tensorflow/bazel-bin/google/.			$libDir/google
+cp -a tensorflow/bazel-bin/external/.		$libDir/external
+cp -a tensorflow/bazel-bin/tensorflow/.		$libDir/tensorflow
 
 # Remove repo folder
 rm -rf "tensorflow"

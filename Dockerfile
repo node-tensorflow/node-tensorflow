@@ -46,10 +46,13 @@ RUN ls && cd tensorflow && ls && cd tools && ls
 
 RUN bash ./tensorflow/tools/install.sh
 
-ADD ./ tensorflow
-
 RUN \
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /var/cache/oracle-jdk8-installer
+
+ADD ./ tensorflow
+
+
+# RUN cd tensorflow && npm install && node-gyp configure build
 
 CMD ["bash"]

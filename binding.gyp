@@ -5,7 +5,7 @@
 		
 		'libraries' : [ 
 			"<!@(pkg-config --libs protobuf)",
-			"<!@(find $(pwd)/src/lib -iname \*.lo)"
+			"<!@(find $(pwd)/src/lib -iname \*.o)",
 		],
 
 		'include_dirs' : [ 
@@ -25,22 +25,32 @@
 				"xcode_settings": {
 					"OTHER_CFLAGS": [
 						"-mmacosx-version-min=10.7",
-						"-std=c++11",
+						"-std=c++",
 						"-stdlib=libc++",
 						"<!@(pkg-config --cflags protobuf)",
-					  ],
+					],
+					"OTHER_LDFLAGS": [
+						'-stdlib=libc++',
+					],
+					"OTHER_CPLUSPLUSFLAGS": [
+						'-std=c++11',
+						'-stdlib=libc++',
+						'-v'
+					],
 					"GCC_ENABLE_CPP_RTTI": "YES",
-					"GCC_ENABLE_CPP_EXCEPTIONS": "YES"
-				}
+					"GCC_ENABLE_CPP_EXCEPTIONS": "YES",
+					'MACOSX_DEPLOYMENT_TARGET': '10.9',
+				},
 			}]
 		],
 		'cflags': [
 			"<!@(pkg-config --cflags protobuf)",
-			"-frtti",
 		],
-		'cflags!': [
-			"-fno-rtti",
+		"cflags!": [
 			"-fno-exceptions"
+		],
+		'cflags_cc!': [
+			"-fno-rtti", "-fno-exceptions" 
 		]
 	}]
 }
