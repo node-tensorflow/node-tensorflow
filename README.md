@@ -8,3 +8,6 @@ This project aims to allow more people easy-to-use access to the TensorFlow libr
 We currently need all help we can get. We are specially looking for people with C++ knowledge!
 For more information, please join the slack conversation.
 https://tensor-flow-talk-invite.herokuapp.com/
+
+## Current Progress
+Under development. Keep tracking on the branch v1.0.0 to see the latest update.
