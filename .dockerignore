@@ -2,6 +2,7 @@
 logs
 *.log
 
+src/bin
 src/includes
 tools/tensorflow
 

@@ -5,7 +5,7 @@
 		
 		'libraries' : [ 
 			"<!@(pkg-config --libs protobuf)",
-			"<!@(find $(pwd)/src/lib -iname \*.o)",
+			"<!@(find $(pwd)/src/bin -iname \*.o)",
 		],
 
 		'include_dirs' : [ 
