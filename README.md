@@ -33,15 +33,17 @@ We currently try and define some guidelines, so please be patience to read throu
 
 ## II. INSTALLATION & REPOSITORY STRUCTURE
 
-You can now install the development environment using Docker or directly in your local machine.
+You can now install the development environment using NPM directly.
 
-`cd tools; bash install.sh`
+`npm install -g tensorflowjs`
 
-It would take 10-20 minutes if it's the first time installation. The following is the structure of this repository.
+Note that we execute a bash script under `tools/install.sh`, that **should** install all depencies required. Be aware that this hasn't been tested on multiple enviroments. The tested enviroments are:
 
-`npm install`
+- Mac OSX [10.11.2]
+- Docker with Ubuntu 14.04
+- *Have you got problems/success? Let us know!*
 
-Install the required package after `install.sh` is finished execution.
+It will take 10-20 minutes if it's the first time installation, because we do compile TensorFlow from Source. The following is the structure of this repository:
 
 ```
 src/              
@@ -177,6 +179,11 @@ Build a Node API that wraps [C++ API](https://tensorflow.googlesource.com/tensor
 Feel free to create a pull request =]
 
 ## VI. REFERENCE
+
+#### Inspiration and Ideas
+
++ Installation process was inspired by `node-canvas` and `node-opencv`, both using native `.gyp` bindings from
+  existent c++ code. Part of their work was used in the `bindings.gyp` and `install.sh`
 
 #### Discussion of interface for different languages
 
