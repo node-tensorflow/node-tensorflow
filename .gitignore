@@ -6,7 +6,7 @@ logs
 build
 
 # Compiled TensorFlow cc files
-src/lib
+src/bin
 src/data
 src/includes
 
