@@ -193,4 +193,6 @@ Feel free to create a pull request =]
 + [Ruby API](https://github.com/tensorflow/tensorflow/issues/50)
 + [Rust API](https://github.com/tensorflow/tensorflow/issues/388)
 + [Swig to Java](https://github.com/tensorflow/tensorflow/issues/5)
-+ 
+
+## Current Progress
+Under development. 
