@@ -1,0 +1,10 @@
+# Logs
+logs
+*.log
+
+src/bin
+src/includes
+tools/tensorflow
+
+# Dependency directory
+node_modules
