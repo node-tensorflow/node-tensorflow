@@ -3,7 +3,7 @@ language: node_js
 os:
   - linux
 
-sudo: false
+sudo: true
 
 node_js:
   - '4.1'
