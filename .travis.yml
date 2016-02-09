@@ -9,5 +9,5 @@ node_js:
 compiler: clang
 
 install:
-  # ensure source install works
+  - npm run _preinstall
   - npm install --build-from-source
