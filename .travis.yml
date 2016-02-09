@@ -8,6 +8,12 @@ sudo: false
 node_js:
   - '4.1'
 
+jdk:
+  - oraclejdk8
+
+python:
+  - '2.7'
+
 addons:
   apt:
     sources:
@@ -16,9 +22,7 @@ addons:
       - gcc-4.8
       - g++-4.8
       - wget
-      # Package list from http://bazel.io/docs/install.html
-      - openjdk-7-jdk
-      - openjdk-7-source
+      - oracle-java8-installer
       - pkg-config
       - zip
       - zlib1g-dev
