@@ -12,7 +12,7 @@
 			# Third party must be included as root as well
 			"lib/tensorflow/third_party/eigen3",
 			"lib/tensorflow/third_party/gpus",
-      "tensorflow/external",
+      "lib/tensorflow/external",
       "lib/tensorflow",
 
 			# Include NAN

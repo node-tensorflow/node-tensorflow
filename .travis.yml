@@ -1,0 +1,13 @@
+language: node_js
+
+os:
+  - linux
+
+node_js:
+  - '4.1'
+
+compiler: clang
+
+install:
+  # ensure source install works
+  - npm install --build-from-source
