@@ -44,7 +44,7 @@ before_install:
   - ./bazel-0.1.4-installer-linux-x86_64.sh --user
   - cat ~/.bazelrc >> .bazelrc
 
-compiler: clang
+compiler: gcc
 
 install:
   - npm run _preinstall
