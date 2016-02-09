@@ -4,17 +4,16 @@
 		'sources': ['src/api.cc'],
 		
 		'libraries' : [ 
-			"<!@(pkg-config --libs protobuf)",
-			"<!@(find $(pwd)/src/bin -iname \*.o)",
+			"<!@(pkg-config --libs protobuf)"
 		],
 
 		'include_dirs' : [ 
-			# All c++ dependencies goes here
-			"src/includes",
 
 			# Third party must be included as root as well
-			"src/includes/third_party/eigen3",
-			"src/includes/third_party/gpus",
+			"lib/tensorflow/third_party/eigen3",
+			"lib/tensorflow/third_party/gpus",
+      "tensorflow/external",
+      "lib/tensorflow",
 
 			# Include NAN
 			"<!(node -e \"require('nan')\")"

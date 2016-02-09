@@ -30,6 +30,7 @@
     "pkg-config": "^1.1.0"
   },
   "scripts": {
-    "install": "./tools/install.sh && node-gyp rebuild"
+    "_preinstall": "git submodule update --init --recursive && ./tools/build.sh",
+    "install": "node-gyp rebuild"
   }
 }
