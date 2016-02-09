@@ -33,6 +33,8 @@ before_install:
   - echo "startup --host_jvm_args=-Xmx2500m" >> .bazelrc
   - echo "startup --host_jvm_args=-Xms2500m" >> .bazelrc
   - echo "test --ram_utilization_factor=10" >> .bazelrc
+  - echo "startup --batch" >> .bazelrc
+  - echo "build --spawn_strategy=standalone --genrule_strategy=standalone" >> .bazelrc
   - export BAZELRC="$(pwd)/.bazelrc"
 
   # BAZEL
