@@ -28,6 +28,14 @@ addons:
       - zlib1g-dev
 
 before_install:
+  export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+  cat > .bazelrc <<EOF
+  startup --host_jvm_args=-Xmx2500m
+  startup --host_jvm_args=-Xms2500m"
+  test --ram_utilization_factor=10
+  EOF
+  export BAZELRC="$(pwd)/.bazelrc"
+
   # BAZEL
   # Based on https://github.com/korfuri/bazel-travis
   - wget 'https://github.com/bazelbuild/bazel/releases/download/0.1.4/bazel-0.1.4-installer-linux-x86_64.sh'
