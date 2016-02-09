@@ -28,7 +28,7 @@ before_install:
   # Based on https://github.com/korfuri/bazel-travis
   - wget 'https://github.com/bazelbuild/bazel/releases/download/0.1.4/bazel-0.1.4-installer-linux-x86_64.sh'
   - chmod +x bazel-0.1.4-installer-linux-x86_64.sh
-  - ./bazel-0.1.0-installer-linux-x86_64.sh --user
+  - ./bazel-0.1.4-installer-linux-x86_64.sh --user
   - cat ~/.bazelrc >> .bazelrc
 
   #NUMPY
