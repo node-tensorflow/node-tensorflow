@@ -26,9 +26,8 @@ addons:
 before_install:
   # BAZEL
   # Based on https://github.com/korfuri/bazel-travis
-  - wget 'https://github.com/bazelbuild/bazel/releases/download/0.1.0/bazel-0.1.0-installer-linux-x86_64.sh'
-  - sha256sum -c tools/bazel-0.1.0-installer-linux-x86_64.sh.sha256
-  - chmod +x bazel-0.1.0-installer-linux-x86_64.sh
+  - wget 'https://github.com/bazelbuild/bazel/releases/download/0.1.4/bazel-0.1.4-installer-linux-x86_64.sh'
+  - chmod +x bazel-0.1.4-installer-linux-x86_64.sh
   - ./bazel-0.1.0-installer-linux-x86_64.sh --user
   - cat ~/.bazelrc >> .bazelrc
 
