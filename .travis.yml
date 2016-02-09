@@ -14,14 +14,19 @@ jdk:
 python:
   - '2.7'
 
+compiler: clang-3.6
+env:
+  - CXX=clang-3.6
+
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.6
     packages:
       - gcc-4.8
       - g++-4.8
-      - clang
+      - clang-3.6
       - wget
       - oracle-java8-installer
       - pkg-config
@@ -31,6 +36,7 @@ addons:
 
 before_install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+  - g++ --version
 
   - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
   - echo "startup --host_jvm_args=-Xmx2500m" >> .bazelrc
