@@ -41,8 +41,6 @@ before_install:
   - $CXX --version
   - export CXXFLAGS="-std=c++0x -stdlib=libc++"
 
-  - #https://github.com/bazelbuild/bazel/issues/649, https://github.com/tensorflow/tensorflow/issues/336 FML
-  - sudo mv $(which $CXX) /usr/bin/gcc
 
   - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
   - echo "startup --host_jvm_args=-Xmx2500m" >> .bazelrc
@@ -50,6 +48,9 @@ before_install:
   - echo "test --ram_utilization_factor=10" >> .bazelrc
   - echo "startup --batch" >> .bazelrc
   - echo "build --spawn_strategy=standalone --genrule_strategy=standalone" >> .bazelrc
+  # Bazel hardcodes /usr/bin/gcc by default :s
+  # https://github.com/bazelbuild/bazel/issues/649, https://github.com/tensorflow/tensorflow/issues/336 FML
+  - echo "build --crosstool_top //tools/custom_crosstool:CROSSTOOL" >> .bazelrc
   - export BAZELRC="$(pwd)/.bazelrc"
 
   # BAZEL
