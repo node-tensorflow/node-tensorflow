@@ -50,7 +50,6 @@ before_install:
   - echo "build --spawn_strategy=standalone --genrule_strategy=standalone" >> .bazelrc
   # Bazel hardcodes /usr/bin/gcc by default :s
   # https://github.com/bazelbuild/bazel/issues/649, https://github.com/tensorflow/tensorflow/issues/336 FML
-  - echo "build --crosstool_top //tools/custom_crosstool:CROSSTOOL" >> .bazelrc
   - export BAZELRC="$(pwd)/.bazelrc"
 
   # BAZEL
