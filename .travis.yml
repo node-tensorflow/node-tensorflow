@@ -14,10 +14,6 @@ jdk:
 python:
   - '2.7'
 
-compiler: clang-3.6
-env:
-  - CXX=clang-3.6
-
 addons:
   apt:
     sources:
@@ -35,12 +31,6 @@ addons:
       - python-numpy
 
 before_install:
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-  - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.6"; fi
-
-  - $CXX --version
-  - export CXXFLAGS="-std=c++0x -stdlib=libc++"
-
 
   - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
   - echo "startup --host_jvm_args=-Xmx2500m" >> .bazelrc
