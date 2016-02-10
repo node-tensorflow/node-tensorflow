@@ -48,8 +48,6 @@ before_install:
   - echo "test --ram_utilization_factor=10" >> .bazelrc
   - echo "startup --batch" >> .bazelrc
   - echo "build --spawn_strategy=standalone --genrule_strategy=standalone" >> .bazelrc
-  # Bazel hardcodes /usr/bin/gcc by default :s
-  # https://github.com/bazelbuild/bazel/issues/649, https://github.com/tensorflow/tensorflow/issues/336 FML
   - export BAZELRC="$(pwd)/.bazelrc"
 
   # BAZEL
@@ -58,6 +56,13 @@ before_install:
   - chmod +x bazel-0.1.4-installer-linux-x86_64.sh
   - ./bazel-0.1.4-installer-linux-x86_64.sh --user
   - cat ~/.bazelrc >> .bazelrc
+
+  # Bazel hardcodes /usr/bin/gcc by default :s
+  # https://github.com/bazelbuild/bazel/issues/649, https://github.com/tensorflow/tensorflow/issues/336 FML
+  - sudo rm /usr/bin/gcc
+  - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
+  - /usr/bin/gcc --version
+
 
 compiler: clang
 
