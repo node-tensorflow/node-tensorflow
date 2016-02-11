@@ -10,9 +10,13 @@
 		'include_dirs' : [ 
 
 			# Third party must be included as root as well
-			"lib/tensorflow/third_party/eigen3",
+      "lib/tensorflow/bazel-tensorflow",
+      "lib/tensorflow/bazel-tensorflow/tensorflow",
+			"lib/tensorflow/bazel-tensorflow/third_party/eigen3",
+      "lib/tensorflow/bazel-tensorflow/external/eigen_archive/eigen-eigen-fa22401ededc",
 			"lib/tensorflow/third_party/gpus",
-      "lib/tensorflow/external",
+      "lib/tensorflow/bazel-tensorflow/external",
+      "lib/tensorflow/bazel-tensorflow/external/eigen_archive",
       "lib/tensorflow",
 
 			# Include NAN

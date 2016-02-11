@@ -1,8 +1,8 @@
-# Compile photobuf
 cd "lib/tensorflow"
 echo ""
-echo "= Configuring TensorFlow (GPU: $TENSORFLOW_GPU_ENABLED)"
+git reset --hard
+patch -Np1 < ../../tools/tensorflow.patch # From https://github.com/bytedeco/javacpp-presets/blob/master/tensorflow/tensorflow-master.patch
 echo "\n" | ./configure
-echo "= Compiling TensorFlow [cc|core]"
-bazel build --verbose_failures=1 //tensorflow/cc:cc_ops //tensorflow/core:tensorflow
+bazel build --verbose_failures=1 -c opt //tensorflow/cc:libtensorflow.so
+#bazel build --verbose_failures=2 //tensorflow/cc:cc_ops //tensorflow/core:protos_all_cc //tensorflow/core:tensorflow
 
