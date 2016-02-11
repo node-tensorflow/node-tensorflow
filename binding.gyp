@@ -18,6 +18,7 @@
       "lib/tensorflow/bazel-tensorflow/external",
       "lib/tensorflow/bazel-tensorflow/external/eigen_archive",
       "lib/tensorflow",
+      "lib/tensorflow/bazel-tensorflow/google/protobuf/src/",
 
 			# Include NAN
 			"<!(node -e \"require('nan')\")"
