@@ -20,8 +20,6 @@ addons:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-precise-3.6
     packages:
-      - gcc-4.8
-      - g++-4.8
       - clang-3.6
       - wget
       - oracle-java8-installer
@@ -31,6 +29,12 @@ addons:
       - python-numpy
 
 before_install:
+  - sudo apt-get install g++-4.9
+  # Bazel hardcodes /usr/bin/gcc by default :s
+  # https://github.com/bazelbuild/bazel/issues/649, https://github.com/tensorflow/tensorflow/issues/336 FML
+  - sudo rm /usr/bin/gcc
+  - sudo ln -s /usr/bin/g++-4.9 /usr/bin/gcc
+  - /usr/bin/gcc --version
 
   - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
   - echo "startup --host_jvm_args=-Xmx2500m" >> .bazelrc
@@ -48,15 +52,13 @@ before_install:
   - ./bazel-0.1.4-installer-linux-x86_64.sh --user
   - cat ~/.bazelrc >> .bazelrc
 
-  # Bazel hardcodes /usr/bin/gcc by default :s
-  # https://github.com/bazelbuild/bazel/issues/649, https://github.com/tensorflow/tensorflow/issues/336 FML
-  - sudo rm /usr/bin/gcc
-  - sudo ln -s /usr/bin/gcc-4.8 /usr/bin/gcc
-  - /usr/bin/gcc --version
 
 
 compiler: clang
 
 install:
   - npm run _preinstall
-  - npm install --build-from-source
+  - npm install
+  - node index.js
+
+
