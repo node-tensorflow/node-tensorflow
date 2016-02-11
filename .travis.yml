@@ -42,6 +42,7 @@ before_install:
   - echo "test --ram_utilization_factor=10" >> .bazelrc
   - echo "startup --batch" >> .bazelrc
   - echo "build --spawn_strategy=standalone --genrule_strategy=standalone" >> .bazelrc
+  - echo "build --jobs" >> .bazelrc
   - echo "build --local_resources 2048,.5,1.0" >> .bazelrc
   - export BAZELRC="$(pwd)/.bazelrc"
 
