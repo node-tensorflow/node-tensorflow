@@ -4,17 +4,21 @@
 		'sources': ['src/api.cc'],
 		
 		'libraries' : [ 
-			"<!@(pkg-config --libs protobuf)",
-			"<!@(find $(pwd)/src/bin -iname \*.o)",
+			"<!@(pkg-config --libs protobuf)"
 		],
 
 		'include_dirs' : [ 
-			# All c++ dependencies goes here
-			"src/includes",
 
 			# Third party must be included as root as well
-			"src/includes/third_party/eigen3",
-			"src/includes/third_party/gpus",
+      "lib/tensorflow/bazel-tensorflow",
+      "lib/tensorflow/bazel-tensorflow/tensorflow",
+			"lib/tensorflow/bazel-tensorflow/third_party/eigen3",
+      "lib/tensorflow/bazel-tensorflow/external/eigen_archive/eigen-eigen-726c779797e8",
+			"lib/tensorflow/third_party/gpus",
+      "lib/tensorflow/bazel-tensorflow/external",
+      "lib/tensorflow/bazel-tensorflow/external/eigen_archive",
+      "lib/tensorflow",
+      "lib/tensorflow/bazel-tensorflow/google/protobuf/src/",
 
 			# Include NAN
 			"<!(node -e \"require('nan')\")"

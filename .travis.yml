@@ -1,0 +1,65 @@
+language: node_js
+
+os:
+  - linux
+
+sudo: true
+
+node_js:
+  - '4.1'
+
+jdk:
+  - oraclejdk8
+
+python:
+  - '2.7'
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.6
+    packages:
+      - clang-3.6
+      - wget
+      - oracle-java8-installer
+      - pkg-config
+      - zip
+      - zlib1g-dev
+      - python-numpy
+
+before_install:
+  - sudo apt-get install g++-4.9
+  # Bazel hardcodes /usr/bin/gcc by default :s
+  # https://github.com/bazelbuild/bazel/issues/649, https://github.com/tensorflow/tensorflow/issues/336 FML
+  - sudo rm /usr/bin/gcc
+  - sudo ln -s /usr/bin/g++-4.9 /usr/bin/gcc
+  - /usr/bin/gcc --version
+
+  - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+  - echo "startup --host_jvm_args=-Xmx2500m" >> .bazelrc
+  - echo "startup --host_jvm_args=-Xms2500m" >> .bazelrc
+  - echo "test --ram_utilization_factor=10" >> .bazelrc
+  - echo "startup --batch" >> .bazelrc
+  - echo "build --spawn_strategy=standalone --genrule_strategy=standalone" >> .bazelrc
+  - echo "build --jobs" >> .bazelrc
+  - echo "build --local_resources 2048,.5,1.0" >> .bazelrc
+  - export BAZELRC="$(pwd)/.bazelrc"
+
+  # BAZEL
+  # Based on https://github.com/korfuri/bazel-travis
+  - wget 'https://github.com/bazelbuild/bazel/releases/download/0.1.4/bazel-0.1.4-installer-linux-x86_64.sh'
+  - chmod +x bazel-0.1.4-installer-linux-x86_64.sh
+  - ./bazel-0.1.4-installer-linux-x86_64.sh --user
+  - cat ~/.bazelrc >> .bazelrc
+
+
+
+compiler: clang
+
+install:
+  - npm run _preinstall
+  - npm install
+  - node index.js
+
+
