@@ -13,7 +13,7 @@
       "lib/tensorflow/bazel-tensorflow",
       "lib/tensorflow/bazel-tensorflow/tensorflow",
 			"lib/tensorflow/bazel-tensorflow/third_party/eigen3",
-      "lib/tensorflow/bazel-tensorflow/external/eigen_archive/eigen-eigen-fa22401ededc",
+      "lib/tensorflow/bazel-tensorflow/external/eigen_archive/eigen-eigen-726c779797e8",
 			"lib/tensorflow/third_party/gpus",
       "lib/tensorflow/bazel-tensorflow/external",
       "lib/tensorflow/bazel-tensorflow/external/eigen_archive",
