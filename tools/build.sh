@@ -1,5 +1,6 @@
 cd "lib/tensorflow"
 echo ""
+#git submodule update --init
 git reset --hard
 patch -Np1 < ../../tools/tensorflow.patch # From https://github.com/bytedeco/javacpp-presets/blob/master/tensorflow/tensorflow-master.patch
 echo "\n" | ./configure
