@@ -3,9 +3,7 @@
 		'target_name': 'node-tensorflow', 
 		'sources': ['src/api.cc'],
 		
-		'libraries' : [ 
-			"<!@(pkg-config --libs protobuf)"
-		],
+		'libraries' : [],
 
 		'include_dirs' : [ 
 
