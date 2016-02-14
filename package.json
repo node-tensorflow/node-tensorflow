@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "bindings": "^1.2.1",
-    "nan": "^2.1.0"
+    "nan": "^2.2.0"
   },
   "licenses": [
     {
@@ -27,9 +27,12 @@
     }
   ],
   "devDependencies": {
-    "pkg-config": "^1.1.0"
+    "pkg-config": "^1.1.0",
+    "tape": "^4.4.0"
   },
   "scripts": {
-    "install": "./tools/install.sh && node-gyp rebuild"
+    "_preinstall": "git submodule update --init --recursive && ./tools/build.sh",
+    "install": "node-gyp rebuild",
+    "test": "node test/suite.js"
   }
 }

@@ -3,15 +3,17 @@
 
 #include "tensorflow/core/public/version.h"
 
+using namespace v8;
 
+/*
 #include <fstream>
 
 // #include "tensorflow/core/lib/core/stringpiece.h"
 
 
 #include "tensorflow/cc/ops/const_op.h"
-#include "tensorflow/cc/ops/image_ops.h"
-#include "tensorflow/cc/ops/standard_ops.h"
+#include "tensorflow/core/ops/image_ops.h"
+//#include "tensorflow/cc/ops/standard_ops.h"
 #include "tensorflow/core/framework/graph.pb.h"
 #include "tensorflow/core/graph/default_device.h"
 #include "tensorflow/core/graph/graph_def_builder.h"
@@ -219,7 +221,6 @@ Status CheckTopLabel(const std::vector<Tensor>& outputs, int expected,
   return Status::OK();
 }
 
-using namespace v8;
 
 int runTests() {
   // We need to call this to set up global state for TensorFlow.
@@ -290,28 +291,25 @@ int runTests() {
 
 
 
+
 NAN_METHOD(RunTest) {
 	printf("\nRunning Test\n");
 	runTests();
 }
+*/
 
 NAN_METHOD(Version) {
-    printf("%s\n", TF_VERSION_STRING);
+  info.GetReturnValue().Set(
+    Nan::New<String>(TF_VERSION_STRING).ToLocalChecked()
+  );
+  return;
 }
 
-NAN_METHOD(Print) {
-    printf("This is a sample Node.js addon\n");
-}
 
 NAN_MODULE_INIT(Init) {
-    Nan::Set(target, Nan::New("print").ToLocalChecked(),
-      Nan::GetFunction(Nan::New<FunctionTemplate>(Print)).ToLocalChecked());
 
-    Nan::Set(target, Nan::New("version").ToLocalChecked(),
-      Nan::GetFunction(Nan::New<FunctionTemplate>(Version)).ToLocalChecked());
-
-    Nan::Set(target, Nan::New("test").ToLocalChecked(),
-      Nan::GetFunction(Nan::New<FunctionTemplate>(RunTest)).ToLocalChecked());
+  Nan::Set(target, Nan::New("version").ToLocalChecked(),
+  Nan::GetFunction(Nan::New<FunctionTemplate>(Version)).ToLocalChecked());
 }
 
-NODE_MODULE(myaddon, Init);
+NODE_MODULE(tensorflow, Init);
