@@ -1,5 +1,6 @@
 # TensorFlow.js
-![Google TensorFlow Logo](https://i.imgur.com/QOQlMfn.jpg)
+
+[![build status](https://travis-ci.org/node-tensorflow/node-tensorflow.svg)](https://travis-ci.org/node-tensorflow/node-tensorflow)
 
 Node-tensorflow is a NodeJS API for utilizing Google's open-source machine learning library TensorFlow.
 This project aims to allow more people easy-to-use access to the TensorFlow library inside of NodeJS while still having performance and stability in mind. The project is in early design stage and we appreciate anyone who would like to help!
