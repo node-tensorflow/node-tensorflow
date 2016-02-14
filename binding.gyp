@@ -1,7 +1,7 @@
 {
   'targets': [{ 
     'target_name': 'node-tensorflow', 
-    'sources': ['src/api.cc'],
+    'sources': ['tensorflow_wrap.cxx', 'src/api.cc'],
     
     'libraries' : [],
 
