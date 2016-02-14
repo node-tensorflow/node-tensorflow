@@ -29,7 +29,6 @@
 						"-mmacosx-version-min=10.7",
 						"-std=c++",
 						"-stdlib=libc++",
-						"<!@(pkg-config --cflags protobuf)",
 					],
 					"OTHER_LDFLAGS": [
 						'-stdlib=libc++',
@@ -46,7 +45,6 @@
 			}]
 		],
 		'cflags': [
-			"<!@(pkg-config --cflags protobuf)",
 		],
 		"cflags!": [
 			"-fno-exceptions"
