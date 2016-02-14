@@ -299,23 +299,17 @@ NAN_METHOD(RunTest) {
 */
 
 NAN_METHOD(Version) {
-    printf("%s\n", TF_VERSION_STRING);
+  info.GetReturnValue().Set(
+    Nan::New<String>(TF_VERSION_STRING).ToLocalChecked()
+  );
+  return;
 }
 
-NAN_METHOD(Print) {
-    printf("This is a sample Node.js addon\n");
-}
 
 NAN_MODULE_INIT(Init) {
-    Nan::Set(target, Nan::New("print").ToLocalChecked(),
-      Nan::GetFunction(Nan::New<FunctionTemplate>(Print)).ToLocalChecked());
 
-    Nan::Set(target, Nan::New("version").ToLocalChecked(),
-      Nan::GetFunction(Nan::New<FunctionTemplate>(Version)).ToLocalChecked());
-/*
-    Nan::Set(target, Nan::New("test").ToLocalChecked(),
-      Nan::GetFunction(Nan::New<FunctionTemplate>(RunTest)).ToLocalChecked());
-      */
+  Nan::Set(target, Nan::New("version").ToLocalChecked(),
+  Nan::GetFunction(Nan::New<FunctionTemplate>(Version)).ToLocalChecked());
 }
 
-NODE_MODULE(myaddon, Init);
+NODE_MODULE(tensorflow, Init);

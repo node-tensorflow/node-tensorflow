@@ -27,10 +27,12 @@
     }
   ],
   "devDependencies": {
-    "pkg-config": "^1.1.0"
+    "pkg-config": "^1.1.0",
+    "tape": "^4.4.0"
   },
   "scripts": {
     "_preinstall": "git submodule update --init --recursive && ./tools/build.sh",
-    "install": "node-gyp rebuild"
+    "install": "node-gyp rebuild",
+    "test": "node test/suite.js"
   }
 }
