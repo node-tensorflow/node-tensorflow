@@ -8,7 +8,7 @@ echo "\n" | ./configure
 # Prebuild some deps 
 bazel build --verbose_failures=1 @jpeg_archive//:jpeg
 bazel build --verbose_failures=1 -c opt //tensorflow/cc:libtensorflow.so
-bazel build --verbose_failures=1 google/protobuf
+#bazel build --verbose_failures=1 google/protobuf
 #bazel build --verbose_failures=2 //tensorflow/cc:cc_ops //tensorflow/core:protos_all_cc //tensorflow/core:tensorflow
 
 #cd ./bazel-tensorflow/tensorflow
